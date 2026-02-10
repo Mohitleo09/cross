@@ -105,12 +105,13 @@ export async function GET(req) {
         console.log('✅ YouTube OAuth completed successfully');
 
         // Use the correct base URL for redirect (HTTPS)
+        // Use the correct base URL for redirect (HTTPS)
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localhost:3001';
-        return NextResponse.redirect(`${baseUrl}/?connect=youtube&status=success`);
+        return NextResponse.redirect(new URL('/?connect=youtube&status=success', baseUrl));
 
     } catch (error) {
         console.error('YouTube Callback Error:', error);
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://localhost:3001';
-        return NextResponse.redirect(`${baseUrl}/?connect=youtube&status=error&message=${encodeURIComponent(error.message)}`);
+        return NextResponse.redirect(new URL(`/?connect=youtube&status=error&message=${encodeURIComponent(error.message)}`, baseUrl));
     }
 }
