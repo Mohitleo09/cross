@@ -1,0 +1,13 @@
+name: Trigger Cron Job
+on:
+  schedule:
+    - cron: '0 * * * *' # Run every hour
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Vercel Cron Endpoint
+        run: |
+          curl -X GET https://crossposting-lklj.vercel.app/api/cron/import-instagram
